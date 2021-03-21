@@ -1,0 +1,116 @@
+#!/bin/bash
+#sudo apt-get update  &>/dev/null
+#sudo apt-get wget -y &>/dev/null
+killall apt apt-get
+dpkg --configure -a
+apt-get install software-properties-common -y
+apt-add-repository universe -y
+rm -rf /etc/localtime &>/dev/null
+ln -s /usr/share/zoneinfo/America/Mexico_City /etc/localtime &>/dev/null
+rm $(pwd)/$0 &> /dev/null
+### CONFIGURAR POR 22 SSH
+#grep -v "^Port 22" /etc/ssh/sshd_config > /tmp/ssh && mv /tmp/ssh /etc/ssh/sshd_config &>/dev/null
+#echo "Port 22" >> /etc/ssh/sshd_config
+### COLORES Y BARRA 
+msg () {
+BRAN='\033[1;37m' && VERMELHO='\e[31m' && VERDE='\e[32m' && AMARELO='\e[33m'
+AZUL='\e[34m' && MAGENTA='\e[35m' && MAG='\033[1;36m' &&NEGRITO='\e[1m' && SEMCOR='\e[0m'
+ case $1 in
+  -ne)cor="${VERMELHO}${NEGRITO}" && echo -ne "${cor}${2}${SEMCOR}";;
+  -ama)cor="${AMARELO}${NEGRITO}" && echo -e "${cor}${2}${SEMCOR}";;
+  -verm)cor="${AMARELO}${NEGRITO}[!] ${VERMELHO}" && echo -e "${cor}${2}${SEMCOR}";;
+  -azu)cor="${MAG}${NEGRITO}" && echo -e "${cor}${2}${SEMCOR}";;
+  -verd)cor="${VERDE}${NEGRITO}" && echo -e "${cor}${2}${SEMCOR}";;
+  -bra)cor="${VERMELHO}" && echo -ne "${cor}${2}${SEMCOR}";;
+  "-bar2"|"-bar")cor="${VERMELHO}======================================================" && echo -e "${SEMCOR}${cor}${SEMCOR}";;
+ esac
+}
+clear
+ msg -bar2
+ msg -ama "     [ VPS - CREATOR - SCRIPT \033[1;97m ❌ MOD By @GarudaProjects ❌\033[1;33m ]"
+ echo -e  "\033[1;97m               RUNNING ACTULIZER  \033[1;34m "
+ msg -bar2
+## Script name
+SCRIPT_NAME=vpsmxup
+## Install directory
+WORKING_DIR_ORIGINAL="$(pwd)"
+INSTALL_DIR_PARENT="/usr/local/vpsmxup/"
+INSTALL_DIR=${INSTALL_DIR_PARENT}${SCRIPT_NAME}/
+## /etc/ config directory
+mkdir -p "/etc/vpsmxup/"
+## Install/update
+if [ ! -d "$INSTALL_DIR" ]; then
+	echo -e  "\033[1;97m           Installing Priority Packages"
+	echo "           --------------------------------"
+	sleep 2
+	mkdir -p "$INSTALL_DIR_PARENT"
+	cd "$INSTALL_DIR_PARENT"
+    wget https://raw.githubusercontent.com/GarudaProjects/VPS-MX/main/VPS-MX_Oficial/zzupdate-master/zzupdate.default.conf -O /usr/local/vpsmxup/vpsmxup.default.conf  &> /dev/null
+	#chmod +x /usr/local/vpsmxup/vpsmxup.default.conf 
+	rm -rf /usr/local/vpsmxup/vpsmxup.sh
+    wget https://raw.githubusercontent.com/GarudaProjects/VPS-MX/main/Install/zzupdate.sh -O /usr/local/vpsmxup/vpsmxup.sh &> /dev/null
+	chmod +x /usr/local/vpsmxup/vpsmxup.sh
+	rm -rf /usr/bin/vpsmxup
+    wget https://raw.githubusercontent.com/GarudaProjects/VPS-MX/main/Install/zzupdate.sh -O /usr/bin/vpsmxup &> /dev/null
+	chmod +x /usr/bin/vpsmxup
+	echo -e  "\033[1;97m              Copying Internal Installer "
+	
+	echo "           --------------------------------"	
+	msg -bar2
+	sleep 2
+else
+	echo ""
+fi
+
+ubu16_fun () {
+    wget -O /etc/apt/sources.list https://raw.githubusercontent.com/GarudaProjects/VPS-MX/main/VPS-MX_Oficial/Repositorios/16.04/sources.list &> /dev/null
+	echo -e "\033[1;97m Select Ubuntu 16.04"
+}
+
+ubu18_fun () {
+    wget -O /etc/apt/sources.list https://raw.githubusercontent.com/GarudaProjects/VPS-MX/main/VPS-MX_Oficial/Repositorios/18.04/sources.list &> /dev/null
+	echo -e "\033[1;97m Select Ubuntu 18.04"
+}	
+
+otro_fun () {
+    
+	echo "OK ANOTHER VERSION"
+}
+otro_fun2 () {
+    
+	echo "OK IGNORE THIS STEP"
+}
+echo -e "\e[1;100mREMEMBER THAT THIS SCRIPT IS TOTALLY FREE AND OPEN CODE IS TOTALLY FORBIDDEN ITS SALE \nIN CASE YOU HAVE PURCHASED IT - \nREMEMBER THAT THEY PUT THE WHOLE DICK IN YOUR ASS\e[0m"
+msg -bar
+	echo -e "\033[1;97m           ---- WHAT UBUNTU IS USING ----"
+	echo -e "\033[1;97m  Enter only the number according to your answer: "
+    msg -bar
+    echo -e "\033[1;97m Choose the desired option."
+    msg -bar
+    echo " 1).- Ubuntu 16.04 "
+    echo " 2).- Ubuntu 18.04 "
+    echo " 3).- Other Version "
+    echo " 4).- Skip This Step"
+	msg -bar
+	echo -n "Enter only the number according to your answer: "
+    read opcao
+    case $opcao in
+    1)
+    ubu16_fun 
+    ;;
+    2)
+    ubu18_fun
+    ;;
+    3)
+    otro_fun
+    ;;
+    4)
+    otro_fun2
+    ;;
+    esac
+	
+sleep 5
+## Restore working directory
+cd $WORKING_DIR_ORIGINAL
+clear
+vpsmxup
