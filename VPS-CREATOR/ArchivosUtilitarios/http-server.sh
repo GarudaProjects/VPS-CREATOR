@@ -83,6 +83,7 @@ Server: ShellHTTP
 Content-Length: $(wc --bytes "$FILE" | cut -d " " -f1)
 Connection: close
 Content-Type: text/html; charset=utf-8
+
 $(cat "$FILE")
 EOF
 #FINALIZA O ENVIO
