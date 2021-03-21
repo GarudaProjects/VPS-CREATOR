@@ -1,0 +1,11 @@
+#!/bin/bash
+NOM="$(less /etc/newadm/ger-user/nombre.log)"
+NOM1="$(echo $NOM)"
+IDB=`less /etc/newadm/ger-user/IDT.log` > /dev/null 2>&1
+IDB1=`echo $IDB` > /dev/null 2>&1
+KEY="1682958884:AAFRewSgn_rbPakHTT1-DGnpCBk9AJarGXc"
+URL="https://api.telegram.org/bot$KEY/sendMessage"
+MSG="⚠️ VPS NOTICE: $NOM1 ⚠️
+❗️ VPS REBOOTED ❗️
+🔰 SUCCESSFUL START 🔰 "
+curl -s --max-time 10 -d "chat_id=$IDB1&disable_web_page_preview=1&text=$MSG" $URL &>/dev/null
