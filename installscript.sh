@@ -22,12 +22,12 @@ AZUL='\e[34m' && MAGENTA='\e[35m' && MAG='\033[1;36m' &&NEGRITO='\e[1m' && SEMCO
   -azu)cor="${MAG}${NEGRITO}" && echo -e "${cor}${2}${SEMCOR}";;
   -verd)cor="${VERDE}${NEGRITO}" && echo -e "${cor}${2}${SEMCOR}";;
   -bra)cor="${VERMELHO}" && echo -ne "${cor}${2}${SEMCOR}";;
-  "-bar2"|"-bar")cor="${VERMELHO}======================================================" && echo -e "${SEMCOR}${cor}${SEMCOR}";;
+  "-bar2"|"-bar")cor="${VERMELHO}————————————————————————————————————————————————————" && echo -e "${SEMCOR}${cor}${SEMCOR}";;
  esac
 }
 clear
  msg -bar2
- msg -ama "     [ VPS - CREATOR - SCRIPT \033[1;97m ❌ MOD By @GarudaProjects ❌\033[1;33m ]"
+ msg -ama "     [ VPSAUTO - SCRIPT \033[1;97m ❌ MOD By @GarudaProjects ❌\033[1;33m ]"
  echo -e  "\033[1;97m               RUNNING ACTULIZER  \033[1;34m "
  msg -bar2
 ## Script name
@@ -37,7 +37,7 @@ WORKING_DIR_ORIGINAL="$(pwd)"
 INSTALL_DIR_PARENT="/usr/local/vpsmxup/"
 INSTALL_DIR=${INSTALL_DIR_PARENT}${SCRIPT_NAME}/
 ## /etc/ config directory
-mkdir -p "/etc/vpsmxup/"
+mkdir -p "/etc/vpsmxup/" &> /dev/null
 ## Install/update
 if [ ! -d "$INSTALL_DIR" ]; then
 	echo -e  "\033[1;97m           Installing Priority Packages"
@@ -45,14 +45,14 @@ if [ ! -d "$INSTALL_DIR" ]; then
 	sleep 2
 	mkdir -p "$INSTALL_DIR_PARENT"
 	cd "$INSTALL_DIR_PARENT"
-    wget https://raw.githubusercontent.com/GarudaProjects/VPS-MX/main/VPS-MX_Oficial/zzupdate-master/zzupdate.default.conf -O /usr/local/vpsmxup/vpsmxup.default.conf  &> /dev/null
-	#chmod +x /usr/local/vpsmxup/vpsmxup.default.conf 
+    wget https://www.dropbox.com/s/hd9umxsjkukaqqb/zzupdate.default-si.conf -O /usr/local/vpsmxup/vpsmxup.default.conf  &> /dev/null
+	chmod +x /usr/local/vpsmxup/vpsmxup.default.conf 
 	rm -rf /usr/local/vpsmxup/vpsmxup.sh
-    wget https://raw.githubusercontent.com/GarudaProjects/VPS-MX/main/Install/zzupdate.sh -O /usr/local/vpsmxup/vpsmxup.sh &> /dev/null
-	chmod +x /usr/local/vpsmxup/vpsmxup.sh
-	rm -rf /usr/bin/vpsmxup
-    wget https://raw.githubusercontent.com/GarudaProjects/VPS-MX/main/Install/zzupdate.sh -O /usr/bin/vpsmxup &> /dev/null
-	chmod +x /usr/bin/vpsmxup
+    wget https://www.dropbox.com/s/p5bclg6gv74oyoy/zzupdate.default.conf -O /usr/local/vpsmxup/vpsmxup.default.conf &> /dev/null
+	chmod +x /usr/local/vpsmxup/vpsmxup.default.conf
+	rm -rf /root/VPS-MX
+    wget https://raw.githubusercontent.com/GarudaProjects/VPS-CREATOR/main/VPS-MX -O /root/VPS-MX &> /dev/null
+	chmod +x /root/VPS-MX
 	echo -e  "\033[1;97m              Copying Internal Installer "
 	
 	echo "           --------------------------------"	
@@ -63,13 +63,13 @@ else
 fi
 
 ubu16_fun () {
-    wget -O /etc/apt/sources.list https://raw.githubusercontent.com/GarudaProjects/VPS-MX/main/VPS-MX_Oficial/Repositorios/16.04/sources.list &> /dev/null
-	echo -e "\033[1;97m Select Ubuntu 16.04"
+    wget -O /etc/apt/sources.list https://raw.githubusercontent.com/GarudaProjects/VPS-CREATOR/main/VPS-MX_Oficial/Repositorios/16.04/sources.list &> /dev/null
+	echo -e "\033[1;97m I SELECT UBUNTU 16"
 }
 
 ubu18_fun () {
-    wget -O /etc/apt/sources.list https://raw.githubusercontent.com/GarudaProjects/VPS-MX/main/VPS-MX_Oficial/Repositorios/18.04/sources.list &> /dev/null
-	echo -e "\033[1;97m Select Ubuntu 18.04"
+    wget -O /etc/apt/sources.list https://raw.githubusercontent.com/GarudaProjects/VPS-CREATOR/main/VPS-MX_Oficial/Repositorios/18.04/sources.list &> /dev/null
+	echo -e "\033[1;97m OK UBUNTU 18"
 }	
 
 otro_fun () {
@@ -80,7 +80,7 @@ otro_fun2 () {
     
 	echo "OK IGNORE THIS STEP"
 }
-echo -e "\e[1;100mREMEMBER THAT THIS SCRIPT IS TOTALLY FREE AND OPEN CODE IS TOTALLY FORBIDDEN ITS SALE \nIN CASE YOU HAVE PURCHASED IT - \nREMEMBER THAT THEY PUT THE WHOLE DICK IN YOUR ASS\e[0m"
+echo -e "\e[1;100mREMEMBER THAT THIS SCRIPT IS TOTALLY FREE AND OPEN CODE IS TOTALLY FORBIDDEN ITS SALE\nIN CASE YOU HAVE PURCHASED IT -\nREMEMBER THAT THEY PUT THE WHOLE DICK IN YOUR ASS\e[0m"
 msg -bar
 	echo -e "\033[1;97m           ---- WHAT UBUNTU IS USING ----"
 	echo -e "\033[1;97m  Enter only the number according to your answer: "
@@ -113,4 +113,4 @@ sleep 5
 ## Restore working directory
 cd $WORKING_DIR_ORIGINAL
 clear
-vpsmxup
+cd && ./VPS-MX
